@@ -9,14 +9,12 @@ services:
               capabilities:
                 - gpu
     volumes:
-      - ollama:/root/.ollama
+      - /mnt/OllamaRoot:/root/.ollama
     ports:
       - 11434:11434
     container_name: ollama
     image: ollama/ollama
     restart: always
-volumes:
-  ollama: {}
 networks:
   dockge_default:
     external: true

@@ -7,8 +7,8 @@ services:
       - PGID=1000
       - TZ=America/NewYork
     volumes:
-      - /home/docker/jellyfin/config:/config
-      - /mnt/LinuxISO/Media:/media
+      - /mnt/JellyfinConfig:/config
+      - /mnt/JellyfinMedia:/media
     ports:
       - 8096:8096
     deploy:

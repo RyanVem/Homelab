@@ -1,22 +1,22 @@
 services:
-  tailscale-ubuntu:
+  tailscale-dockge:
     image: tailscale/tailscale:latest
     container_name: tailscale
-    hostname: tailscale-ubuntu
+    hostname: tailscale-dockge
     environment:
-      - TS_AUTHKEY=tskey-auth-kk6yU3jd1721CNTRL-LQppoXXuc1FYWJsu3jE62FJxTxvEzFFZ
-      - TS_EXTRA_ARGS=--advertise-routes=10.0.0.0/24
+      - TS_AUTHKEY=<YOUR_TAILSCALE_AUTH_KEY>
+      - TS_EXTRA_ARGS=--advertise-routes=<YOUR ROUTE IP>/24
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_USERSPACE=false
     volumes:
-      - tailscale-ubuntu:/var/lib/tailscale
+      - tailscale-dockge:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
     cap_add:
       - net_admin
       - sys_module
     restart: unless-stopped
 volumes:
-  tailscale-ubuntu:
+  tailscale-dockge:
     driver: local
 networks:
   dockge_default:
