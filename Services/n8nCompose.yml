@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      - POSTGRES_USER=n8n
+      - POSTGRES_PASSWORD=n8npass
+      - POSTGRES_DB=n8n
+    volumes:
+      - /mnt/mainstorage/docker/n8n/postgres_data:/var/lib/postgresql/data
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    restart: always
+    ports:
+      - 5678:5678
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=db
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD=n8npass
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=strongpass
+      - N8N_HOST=n8n.thervhome.com
+      - WEBHOOK_URL=https://n8n.thervhome.com
+    depends_on:
+      - db
+    volumes:
+      - /mnt/mainstorage/docker/n8n/n8n_data:/home/node/.n8n
